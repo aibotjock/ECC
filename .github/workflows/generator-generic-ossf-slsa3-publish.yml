@@ -63,10 +63,12 @@ jobs:
 
       - name: Generate subject for provenance
         id: hash
+        env:
+          PACKAGE_FILE: ${{ steps.build.outputs.package_file }}
         run: |
           set -euo pipefail
 
-          FILE="${{ steps.build.outputs.package_file }}"
+          FILE="$PACKAGE_FILE"
 
           if [ ! -f "$FILE" ]; then
             echo "Package file not found: $FILE"
